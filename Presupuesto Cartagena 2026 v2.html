@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Cartagena 2026 — Presupuesto del Parche</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  :root{
+    --gold:#f59e0b;--gold-dark:#d97706;
+    --w90:rgba(255,255,255,.9);--w70:rgba(255,255,255,.7);--w60:rgba(255,255,255,.6);
+    --w50:rgba(255,255,255,.5);--w40:rgba(255,255,255,.4);--w35:rgba(255,255,255,.35);
+    --w30:rgba(255,255,255,.3);--w25:rgba(255,255,255,.25);--w20:rgba(255,255,255,.2);
+    --w15:rgba(255,255,255,.15);--w10:rgba(255,255,255,.1);--w06:rgba(255,255,255,.06);
+    --w05:rgba(255,255,255,.05);--w03:rgba(255,255,255,.03);--w02:rgba(255,255,255,.02);
+    --g15:rgba(245,158,11,.15);--g12:rgba(245,158,11,.12);--g08:rgba(245,158,11,.08);
+    --g06:rgba(245,158,11,.06);--g25:rgba(245,158,11,.25);--g20:rgba(245,158,11,.2);
+    --g18:rgba(245,158,11,.18);
+  }
+  body{min-height:100vh;background:linear-gradient(180deg,#0a0e1a 0%,#121828 30%,#1a1510 70%,#0d0806 100%);font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+  .hero{position:relative;padding:48px 24px 40px;text-align:center;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(245,158,11,.12) 0%,transparent 60%);pointer-events:none}
+  .hero-c{position:relative;z-index:1}
+  .badge{display:inline-block;padding:5px 18px;border-radius:99px;background:var(--g12);border:1px solid var(--g25);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;animation:fid .6s ease-out}
+  .hero h1{font-size:clamp(34px,8vw,56px);font-weight:900;line-height:1;letter-spacing:-.03em;background:linear-gradient(135deg,#fff 30%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;animation:fiu .6s ease-out .1s both}
+  .hero-sub{font-size:clamp(14px,3vw,18px);font-weight:300;color:var(--w50);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px;animation:fiu .6s ease-out .2s both}
+  .stats{display:flex;justify-content:center;gap:clamp(20px,5vw,44px);flex-wrap:wrap;animation:fiu .6s ease-out .3s both}
+  .stat-v{font-size:28px;font-weight:800;color:var(--gold)}
+  .stat-l{font-size:11px;color:var(--w40);text-transform:uppercase;letter-spacing:.1em}
+
+  .tb{margin:0 16px 32px;padding:28px 24px;border-radius:20px;background:linear-gradient(135deg,var(--g15),var(--g08));border:1px solid var(--g20);text-align:center;animation:fiu .6s ease-out .4s both}
+  .tb-l{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--w40);margin-bottom:4px}
+  .tb-a{font-size:clamp(28px,6vw,42px);font-weight:900;color:var(--gold);line-height:1}
+  .tb-u{font-size:14px;color:var(--w50);margin:4px 0 18px}
+  .tb-pp{display:inline-flex;gap:24px;padding:16px 28px;border-radius:16px;background:rgba(0,0,0,.3)}
+  .pp-v{font-size:22px;font-weight:800;color:#fff}
+  .pp-l{font-size:11px;color:var(--w40);text-transform:uppercase;letter-spacing:.08em}
+  .pp-d{width:1px;background:var(--w10)}
+
+  .content{max-width:600px;margin:0 auto;padding:0 16px 60px}
+  .card{margin-bottom:24px;border-radius:16px;background:var(--w03);border:1px solid var(--w06);overflow:hidden;transition:border-color .3s}
+  .card:hover{border-color:var(--w10)}
+  .ch{padding:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;transition:background .2s}
+  .ch:active{background:rgba(255,255,255,.02)}
+  .dt{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+  .dtt{font-size:18px;font-weight:800}
+  .dtot{font-weight:800;font-size:18px;color:var(--gold)}
+  .dpp{font-size:12px;color:var(--w35)}
+  .chev{font-size:18px;color:var(--w30);transition:transform .3s ease;margin-left:8px}
+  .chev.open{transform:rotate(0deg)}.chev.closed{transform:rotate(-90deg)}
+  .cb{padding:0 20px 20px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease}
+  .cb.open{max-height:4000px;padding:0 20px 20px}
+  .cdiv{height:1px;background:var(--w06);margin-bottom:16px}
+
+  .sec{margin-bottom:16px}
+  .sh{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .si{font-size:18px}
+  .st{font-weight:700;font-size:15px;color:#fff;letter-spacing:.02em}
+  .sl{flex:1;border-bottom:1px dashed var(--w10)}
+  .sv{font-weight:700;font-size:15px;color:var(--gold);white-space:nowrap}
+  .li{display:flex;justify-content:space-between;padding:4px 0 4px 28px;font-size:13px;color:var(--w60)}
+  .lp{color:var(--w70);white-space:nowrap;margin-left:12px}
+  .sn{padding:6px 0 0 28px;font-size:12px;color:var(--w35);font-style:italic;line-height:1.5}
+  .vn{padding:8px 0 8px 28px;font-size:13px;color:var(--w35);margin-bottom:12px}
+
+  .pill{padding:8px 16px;border-radius:99px;border:2px solid var(--w15);background:var(--w06);color:var(--w60);font-weight:500;font-size:12px;cursor:pointer;transition:all .25s ease;font-family:inherit;white-space:nowrap}
+  .pill:hover{border-color:var(--w30)}
+  .pill.a{border-color:var(--gold);background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#1a0a00;font-weight:700}
+  .pg{display:flex;gap:8px;flex-wrap:wrap}
+
+  .os{margin-bottom:20px}
+  .osl{font-size:12px;color:var(--w40);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+  .od{padding:12px 16px;border-radius:12px;background:var(--g06);border:1px solid var(--g12);font-size:13px;color:var(--w50);line-height:1.6;margin-top:12px}
+  .od strong{color:var(--gold)}
+  .subl{font-size:11px;color:var(--w30);margin-bottom:6px}
+  .splitbox{padding:10px 14px;border-radius:10px;background:var(--w03);margin-top:12px;font-size:12px;color:var(--w35);line-height:1.6}
+  .splitbox strong{color:var(--w50)}
+
+  .sc{border-radius:16px;background:linear-gradient(135deg,var(--g08),rgba(217,119,6,.04));border:1px solid var(--g15);padding:24px 20px;margin-bottom:24px}
+  .sct{font-size:16px;font-weight:800;text-align:center;margin-bottom:16px}
+  .sr{display:flex;justify-content:space-between;padding:10px 0;font-size:14px}
+  .sr:not(:last-child){border-bottom:1px solid var(--w06)}
+  .sr .rl{color:var(--w70)}.sr .rv{font-weight:700}
+  .gtb{margin-top:16px;padding:16px;border-radius:12px;background:rgba(0,0,0,.3)}
+  .gtr{display:flex;justify-content:space-between;align-items:baseline}
+  .gtl{font-size:16px;font-weight:800}
+  .gtv{font-size:20px;font-weight:900;color:var(--gold)}
+  .gtu{display:flex;justify-content:space-between;margin-top:4px}
+  .gul{font-size:12px;color:var(--w40)}.guv{font-size:14px;font-weight:700;color:var(--w50)}
+  .pph{margin-top:12px;padding:18px;border-radius:12px;background:linear-gradient(135deg,var(--g18),rgba(217,119,6,.1));text-align:center}
+  .pphl{font-size:12px;color:var(--w50);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+  .pphv{font-size:30px;font-weight:900;color:var(--gold)}
+  .pphu{font-size:14px;color:var(--w50);margin-top:2px}
+
+  .bc{border-radius:16px;background:var(--w03);border:1px solid var(--w06);padding:20px;margin-bottom:24px}
+  .bct{font-size:14px;font-weight:800;color:var(--w60);margin-bottom:12px}
+  .br{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--w50)}
+  .brc{color:var(--w70);font-weight:600}.bru{color:var(--w25);margin-left:8px}
+
+  .nc{border-radius:16px;background:var(--w02);border:1px solid var(--w05);padding:20px;margin-bottom:24px}
+  .nct{font-size:14px;font-weight:800;color:var(--w50);margin-bottom:12px}
+  .nb{font-size:13px;color:var(--w40);line-height:1.8}
+  .nb p{margin-bottom:8px}.nb p:last-child{margin-bottom:0}.nb strong{color:var(--w60)}
+
+  .ft{text-align:center;padding:24px 0 48px}
+  .fte{font-size:26px;margin-bottom:8px}
+  .ftt{font-size:11px;color:var(--w20);letter-spacing:.12em;text-transform:uppercase}
+
+  .hi{font-size:13px;color:var(--w50);margin-bottom:12px;line-height:1.6}
+  .hi .su{color:var(--w30)}
+  .airbnb-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);color:var(--gold);font-size:13px;font-weight:600;text-decoration:none;margin-bottom:12px;transition:background .2s}
+  .airbnb-btn:hover{background:rgba(245,158,11,.18)}
+  .hb{display:flex;justify-content:space-between;align-items:baseline}
+  .hl{font-size:13px;color:var(--w40)}
+  .hp{font-weight:800;font-size:18px;color:var(--gold)}
+  .hpp{font-size:12px;color:var(--w35)}
+  .hnote{margin-top:10px;padding:10px 14px;border-radius:10px;background:var(--w03);border:1px dashed var(--w10);font-size:12px;color:var(--w35);line-height:1.5}
+
+  @keyframes fiu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fid{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-c">
+    <div class="badge">Mayo 22 – 24, 2026</div>
+    <h1>CARTAGENA</h1>
+    <p class="hero-sub">Beach House · La Boquilla</p>
+    <div class="stats">
+      <div><div class="stat-v">15</div><div class="stat-l">Personas</div></div>
+      <div><div class="stat-v">3</div><div class="stat-l">Días</div></div>
+      <div><div class="stat-v">2</div><div class="stat-l">Noches</div></div>
+      <div><div class="stat-v">7</div><div class="stat-l">Habitaciones</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="tb" id="totalBanner"></div>
+
+<div class="content">
+
+  <!-- HOSPEDAJE -->
+  <div class="card" style="padding:20px" id="hospCard">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <span class="si">🏠</span><span style="font-weight:700;font-size:16px">Hospedaje</span>
+    </div>
+    <div class="hi">
+      Luxury Beach House · La Boquilla, Cartagena<br>
+      7 habitaciones · 10 camas · Piscina · Frente al mar<br>
+      <span class="su">⭐ 4.64 en Airbnb · Precio negociado directo</span>
+    </div>
+    <a class="airbnb-btn" href="https://www.airbnb.mx/rooms/1325428985550814199?unique_share_id=0a0f1da0-06cc-4ee0-a015-d17b0e3563c2&viralityEntryPoint=1&s=76" target="_blank" rel="noopener noreferrer">
+      🔗 Ver propiedad en Airbnb
+    </a>
+    <div class="hb">
+      <span class="hl">2 noches / 15 personas</span>
+      <div style="text-align:right">
+        <div class="hp">$4.200.000</div>
+        <div class="hpp">$280.000 pp · $70 USD pp</div>
+      </div>
+    </div>
+    <div class="hnote">📌 <em>Nota: El precio en Airbnb no coincide — este fue negociado directo con el dueño. Seguimos rastreando hospedajes por si aparece una mejor opción.</em></div>
+  </div>
+
+  <!-- DÍA 1 -->
+  <div class="card"><div class="ch" onclick="tog(1)"><div><div class="dt">Viernes 22 de Mayo</div><div class="dtt">Llegada + Rumba Suave 🍸</div></div><div style="display:flex;align-items:center"><div style="text-align:right"><div class="dtot" id="d1t"></div><div class="dpp" id="d1p"></div></div><span class="chev open" id="c1">▾</span></div></div><div class="cb open" id="b1"><div class="cdiv"></div><div id="d1c"></div></div></div>
+
+  <!-- DÍA 2 -->
+  <div class="card"><div class="ch" onclick="tog(2)"><div><div class="dt">Sábado 23 de Mayo</div><div class="dtt">Playa, Centro + Asado 🥩</div></div><div style="display:flex;align-items:center"><div style="text-align:right"><div class="dtot" id="d2t"></div><div class="dpp" id="d2p"></div></div><span class="chev open" id="c2">▾</span></div></div><div class="cb open" id="b2"><div class="cdiv"></div><div id="d2c"></div></div></div>
+
+  <!-- DÍA 3 -->
+  <div class="card"><div class="ch" onclick="tog(3)"><div><div class="dt">Domingo 24 de Mayo</div><div class="dtt">Barú / Cholón 🚤</div></div><div style="display:flex;align-items:center"><div style="text-align:right"><div class="dtot" id="d3t"></div><div class="dpp" id="d3p"></div></div><span class="chev open" id="c3">▾</span></div></div><div class="cb open" id="b3"><div class="cdiv"></div><div id="d3c"></div></div></div>
+
+  <div id="summ"></div>
+
+  <!-- NOTAS -->
+  <div class="nc">
+    <div class="nct">📋 Notas Importantes</div>
+    <div class="nb">
+      <p>• Tasa de cambio: <strong>$4,000 COP = $1 USD</strong></p>
+      <p>• Viernes es <strong>suave</strong> (~5 tragos pp). La artillería pesada es el sábado.</p>
+      <p>• Split de licor: <strong>7 guareros / 4 roneros / 4 whiskeros</strong>. El que toma uno, no toma del otro.</p>
+      <p>• Domingo: <strong>TODO el licor, pasabocas e hidratación se lleva desde la ciudad</strong>. Llevar nevera con hielo.</p>
+      <p>• Precios incluyen <strong>nuevos impuestos 2026</strong> (IVA 19% sobre licores).</p>
+      <p>• Bote ($2.4M) y hospedaje ($4.2M) son <strong>precios negociados</strong> directos.</p>
+      <p>• Se recomienda recoger plata por adelantado (Nequi/Daviplata) para compras del grupo.</p>
+    </div>
+  </div>
+
+  <div class="ft"><div class="fte">🌴🍻🚤</div><div class="ftt">Nos vemos en Cartagena, parceros</div></div>
+</div>
+
+<script>
+var S={food:'B',ron:'medellin',wh:'buchanans',lunch:'playa',open:{1:true,2:true,3:true}};
+
+var HOSP=4200000;
+var D1_CENA=480000,D1_ALQ=2900000,D1_TR=300000;
+var D1_TOT=D1_CENA+D1_ALQ+D1_TR;
+
+var D2_ALM=1200000,D2_TR=240000;
+var D2_BEER=210000,D2_GUARO=315000,D2_MIX=150000;
+var D2_HID=150000,D2_BON=120000,D2_MEC=150000,D2_KIT=420000;
+
+var FO={A:{l:'Domicilios',de:375000,as:730000,ck:0},B:{l:'Recomendada ⭐',de:200000,as:730000,ck:300000},C:{l:'Full Service',de:200000,as:730000,ck:450000}};
+var RO={medellin:{l:'Ron Medellín 12',p2:280000,p1:140000},viejocaldas:{l:'Ron Viejo de Caldas 12',p2:240000,p1:120000}};
+var WO={buchanans:{l:"Buchanan's 12",p2:360000,p1:180000},oldparr:{l:'Old Parr 12',p2:320000,p1:160000}};
+
+var D3_DES=225000,D3_FRI=120000,D3_TR=220000,D3_BOTE=2400000;
+var D3_BEER=195000,D3_GUARO=189000,D3_MIX=100000;
+var D3_HID=150000,D3_BON=120000,D3_MEC=120000,D3_KIT=390000;
+
+function C(n){return '$'+Math.round(n).toLocaleString('es-CO')}
+function U(n){return '$'+Math.round(n/4000).toLocaleString('en-US')+' USD'}
+function P(n){return Math.round(n/15)}
+
+function tog(n){S.open[n]=!S.open[n];var b=document.getElementById('b'+n),c=document.getElementById('c'+n);if(S.open[n]){b.classList.add('open');c.className='chev open'}else{b.classList.remove('open');c.className='chev closed'}}
+function sf(v){S.food=v;R()}function sr(v){S.ron=v;R()}function sw(v){S.wh=v;R()}function sl(v){S.lunch=v;R()}
+
+function sec(ic,ti,tot,items,note){
+  var h='<div class="sec"><div class="sh"><span class="si">'+ic+'</span><span class="st">'+ti+'</span><span class="sl"></span><span class="sv">'+C(tot)+'</span></div>';
+  items.forEach(function(it){h+='<div class="li"><span>'+it.n+'</span><span class="lp">'+C(it.p)+'</span></div>'});
+  if(note)h+='<div class="sn">'+note+'</div>';
+  return h+'</div>';
+}
+function pill(label,active,fn){return '<button class="pill'+(active?' a':'')+'" onclick="'+fn+'">'+label+'</button>'}
+
+function R(){
+  var f=FO[S.food],r=RO[S.ron],w=WO[S.wh];
+  var d2lic=D2_BEER+D2_GUARO+r.p2+w.p2+D2_MIX;
+  var d2food=f.de+f.as+f.ck;
+  var D2=D2_ALM+D2_TR+d2food+d2lic+D2_KIT;
+
+  var d3alm=S.lunch==='playa'?1050000:570000;
+  var d3lic=D3_BEER+D3_GUARO+r.p1+w.p1+D3_MIX;
+  var D3=D3_DES+D3_FRI+D3_TR+D3_BOTE+d3alm+d3lic+D3_KIT;
+
+  var GT=HOSP+D1_TOT+D2+D3,PP=P(GT);
+
+  // Banner
+  document.getElementById('totalBanner').innerHTML='<div class="tb-l">Presupuesto Total Estimado</div><div class="tb-a">'+C(GT)+'</div><div class="tb-u">'+U(GT)+'</div><div class="tb-pp"><div style="text-align:center"><div class="pp-v">'+C(PP)+'</div><div class="pp-l">Por persona</div></div><div class="pp-d"></div><div style="text-align:center"><div class="pp-v">'+U(PP)+'</div><div class="pp-l">Per person</div></div></div>';
+
+  // Day 1
+  document.getElementById('d1t').textContent=C(D1_TOT);
+  document.getElementById('d1p').textContent=C(P(D1_TOT))+' pp';
+  document.getElementById('d1c').innerHTML=
+    sec('🍕','Cena Rápida (Domicilio)',D1_CENA,[{n:'Comida × 15 ($30K pp)',p:450000},{n:'Envío / propina',p:30000}],'Rappi, iFood o domicilio directo — pizza, hamburguesas, pollo, etc.')+
+    sec('🍸','Alquímico — Noche Moderada',D1_ALQ,[{n:'~5 tragos pp (3 cócteles $45K + 2 shots $20K)',p:2625000},{n:'Snacks / picadas en el bar',p:275000}],'Primera noche: nos encontramos y la cogemos suave. Estimado ~$193K pp. Bar #11 del mundo. Walk-in only.')+
+    sec('🚕','Transporte (Taxis)',D1_TR,[{n:'Ida: La Boquilla → Centro (4 taxis × $30K)',p:120000},{n:'Vuelta: Centro → La Boquilla madrugada (4 × $45K)',p:180000}]);
+
+  // Day 2
+  document.getElementById('d2t').textContent=C(D2);
+  document.getElementById('d2p').textContent=C(P(D2))+' pp';
+
+  var fDescs={
+    A:'<strong>Opción A — Domicilios:</strong> Pedimos desayuno por domicilio ($25K pp). Para la noche, hacemos el asado nosotros mismos — compramos los insumos y alguien del grupo se encarga de la parrilla.',
+    B:'<strong>Opción B — Recomendada:</strong> Nos hacemos nuestro propio desayuno con mercado ($13K pp). Para la noche, contratamos un(a) cocinero(a) que se encargue del asado, acompañamientos y limpieza. ¡Todos a disfrutar sin estrés!',
+    C:'<strong>Opción C — Full Service:</strong> Contratamos cocinero(a) para TODO el día. Nos prepara el desayuno en la casa y en la noche se encarga del asado completo. Modo hotel activado.'
+  };
+
+  var dTitle=S.food==='A'?'Desayuno (Domicilio)':S.food==='B'?'Desayuno (Lo hacemos nosotros)':'Desayuno (Cocinero)';
+  var asItems=[{n:'Res (lomo/punta de anca) — 7kg',p:224000},{n:'Pollo (pernil) — 5kg',p:70000},{n:'Chorizo × 30',p:105000},{n:'Acompañamientos (papa, yuca, arepa, ensalada)',p:250000},{n:'Carbón + desechables',p:81000}];
+  if(f.ck>0)asItems.push({n:'Cocinero(a) '+(S.food==='C'?'día completo':'noche'),p:f.ck});
+
+  document.getElementById('d2c').innerHTML=
+    '<div class="os"><div class="osl">⚡ Elige opción de comida del día</div><div class="pg" style="margin-bottom:12px">'+
+    pill('Domicilios',S.food==='A',"sf('A')")+pill('Recomendada ⭐',S.food==='B',"sf('B')")+pill('Full Service',S.food==='C',"sf('C')")+
+    '</div><div class="od">'+fDescs[S.food]+'</div></div>'+
+    sec('🌅',dTitle,f.de,[{n:S.food==='A'?'Domicilio × 15 ($25K pp)':'Mercado: huevos, pan, fruta, café, jugo',p:f.de}])+
+    '<div class="vn">🏖️ <em>Mañana: Piscina + Playa en La Boquilla</em></div>'+
+    sec('🍽️','Almuerzo — Centro Histórico',D2_ALM,[{n:'Restaurante mid-range × 15 ($60K pp)',p:900000},{n:'Bebidas ($20K pp)',p:300000}],'Tipo La Mulata, Candé, Interno, etc.')+
+    sec('🚕','Transporte al Centro',D2_TR,[{n:'Ida y vuelta (4 taxis × $30K × 2)',p:240000}])+
+    sec('🥩','Asado en la Casa',f.as+f.ck,asItems)+
+
+    '<div class="os" style="margin-top:20px"><div class="osl">🥃 Elige el trago corto (aplica también al domingo)</div>'+
+    '<div style="margin-bottom:10px"><div class="subl">RON NACIONAL 12+ años (Sáb: 2 bot · Dom: 1 bot)</div><div class="pg">'+
+    pill('Ron Medellín 12 · $140.000',S.ron==='medellin',"sr('medellin')")+pill('Ron Viejo de Caldas 12 · $120.000',S.ron==='viejocaldas',"sr('viejocaldas')")+
+    '</div></div>'+
+    '<div><div class="subl">WHISKY 12+ años (Sáb: 2 bot · Dom: 1 bot)</div><div class="pg">'+
+    pill("Buchanan's 12 · $180.000",S.wh==='buchanans',"sw('buchanans')")+pill('Old Parr 12 · $160.000',S.wh==='oldparr',"sw('oldparr')")+
+    '</div></div>'+
+    '<div class="splitbox">Split estimado: <strong>7 guareros · 4 roneros · 4 whiskeros</strong>. Cada uno toma de lo suyo.</div></div>'+
+
+    sec('🍻','Licor — Noche Bestial',d2lic,[
+      {n:'Cerveza Águila × 3 canastas (90 uds · 6 pp)',p:D2_BEER},
+      {n:'Aguardiente × 5 botellas (para 7 guareros)',p:D2_GUARO},
+      {n:r.l+' × 2 botellas (para 4 roneros)',p:r.p2},
+      {n:w.l+' × 2 botellas (para 4 whiskeros)',p:w.p2},
+      {n:'Mixers, hielo, limones, vasos',p:D2_MIX}
+    ],'Nivel BESTIAL. ~6 cervezas + 8-10 tragos cortos por persona.')+
+
+    sec('💊','Kit Anti-Guayabo',D2_KIT,[
+      {n:'Hidratación: Electrolit, Pedialyte, sueros × 15',p:D2_HID},
+      {n:'Bonfiest Plus × 15',p:D2_BON},
+      {n:'Mecatos y pasabocas (chips, maní, galletas)',p:D2_MEC}
+    ],'Inversión obligatoria. Mañana hay bote y nadie se puede quedar.');
+
+  // Day 3
+  document.getElementById('d3t').textContent=C(D3);
+  document.getElementById('d3p').textContent=C(P(D3))+' pp';
+
+  var lDesc=S.lunch==='playa'?
+    '<strong>Opción 1 — En la playa:</strong> Pescado frito, arroz con coco, patacón, ensalada. Lo clásico de las islas. $70K por persona.':
+    '<strong>Opción 2 — BYO desde la ciudad:</strong> Compramos antes de salir: sándwiches de Carulla, Subway, combos McDonald\'s, etc. Cada quien elige lo suyo (~$38K pp). Más barato y no dependemos de la isla.';
+
+  var lIcon=S.lunch==='playa'?'🐟':'🥪';
+  var lTitle=S.lunch==='playa'?'Almuerzo en las Islas':'Almuerzo BYO (desde la ciudad)';
+  var lItems=S.lunch==='playa'?[{n:'Almuerzo típico × 15 ($70K pp)',p:1050000}]:[{n:'Sándwiches / combos × 15 (~$38K pp)',p:570000}];
+  var lNote=S.lunch==='playa'?'Pescado frito, arroz con coco, patacón — lo clásico.':'Carulla, Subway, McDonald\'s, etc. Comprar antes de ir al muelle.';
+
+  document.getElementById('d3c').innerHTML=
+    sec('☕','Desayuno en la Calle',D3_DES,[{n:'Desayuno callejero × 15 ($15K pp)',p:225000}])+
+    sec('🫓','Fritos Camino al Muelle',D3_FRI,[{n:'Arepas, empanadas, carimañolas × 15 ($8K pp)',p:120000}])+
+    sec('🚕','Transporte al Muelle',D3_TR,[{n:'Ida: La Boquilla → Muelle La Bodeguita (4 × $25K)',p:100000},{n:'Vuelta: Muelle → La Boquilla (4 × $30K)',p:120000}])+
+    sec('🚤','Paseo en Bote — Barú / Cholón',D3_BOTE,[{n:'Lancha privada × 15 personas (precio negociado)',p:2400000}])+
+
+    '<div class="os"><div class="osl">🍽️ Elige opción de almuerzo</div><div class="pg" style="margin-bottom:12px">'+
+    pill('Almuerzo en la playa',S.lunch==='playa',"sl('playa')")+pill('Llevar desde la ciudad',S.lunch==='byo',"sl('byo')")+
+    '</div><div class="od">'+lDesc+'</div></div>'+
+
+    sec(lIcon,lTitle,d3alm,lItems,lNote)+
+
+    sec('🍻','Licor BYO — Moderado',d3lic,[
+      {n:'Cerveza Águila × 3 canastas (90 uds · 6 pp)',p:D3_BEER},
+      {n:'Aguardiente × 3 botellas',p:D3_GUARO},
+      {n:r.l+' × 1 botella',p:r.p1},
+      {n:w.l+' × 1 botella',p:w.p1},
+      {n:'Mixers, hielo portátil, nevera',p:D3_MIX}
+    ],'Todo comprado en la ciudad. ~6 cervezas + 4-5 tragos por persona. Llevar nevera con hielo.')+
+
+    sec('💊','Kit Anti-Guayabo',D3_KIT,[
+      {n:'Hidratación: Electrolit, Pedialyte, sueros × 15',p:D3_HID},
+      {n:'Bonfiest Plus × 15',p:D3_BON},
+      {n:'Mecatos y pasabocas para el bote',p:D3_MEC}
+    ],'Después de la noche bestial del sábado, esto no es opcional.');
+
+  // Summary
+  document.getElementById('summ').innerHTML=
+    '<div class="sc"><div class="sct">📊 Resumen Final</div>'+
+    '<div class="sr"><span class="rl">🏠 Hospedaje (2 noches)</span><span class="rv">'+C(HOSP)+'</span></div>'+
+    '<div class="sr"><span class="rl">🍸 Viernes — Llegada Suave</span><span class="rv">'+C(D1_TOT)+'</span></div>'+
+    '<div class="sr"><span class="rl">🥩 Sábado — Playa + Asado Bestial</span><span class="rv">'+C(D2)+'</span></div>'+
+    '<div class="sr" style="border:none"><span class="rl">🚤 Domingo — Barú / Cholón</span><span class="rv">'+C(D3)+'</span></div>'+
+    '<div class="gtb"><div class="gtr"><span class="gtl">GRAN TOTAL</span><span class="gtv">'+C(GT)+'</span></div><div class="gtu"><span class="gul">En dólares</span><span class="guv">'+U(GT)+'</span></div></div>'+
+    '<div class="pph"><div class="pphl">Cada uno pone</div><div class="pphv">'+C(PP)+'</div><div class="pphu">'+U(PP)+' por persona</div></div></div>'+
+
+    '<div class="bc"><div class="bct">💰 Desglose por Persona</div>'+
+    '<div class="br"><span>Hospedaje</span><span><span class="brc">'+C(P(HOSP))+'</span><span class="bru">'+U(P(HOSP))+'</span></span></div>'+
+    '<div class="br"><span>Viernes</span><span><span class="brc">'+C(P(D1_TOT))+'</span><span class="bru">'+U(P(D1_TOT))+'</span></span></div>'+
+    '<div class="br"><span>Sábado</span><span><span class="brc">'+C(P(D2))+'</span><span class="bru">'+U(P(D2))+'</span></span></div>'+
+    '<div class="br"><span>Domingo</span><span><span class="brc">'+C(P(D3))+'</span><span class="bru">'+U(P(D3))+'</span></span></div></div>';
+}
+
+R();
+</script>
+</body>
+</html>
